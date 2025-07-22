@@ -1,23 +1,20 @@
-
-// Define the analog pin
-const int potPin = 12;
-
-// GPI012 is input only
-void
-setup() {
-Serial. begin(115200);
+// Diode Signal Detector on ESP32
+const int signalPin = 25; // Pin connected after the diode
+void setup()
+{
+Serial.begin(115200);
+pinMode(signalPin, INPUT);
 }
-
-// Start Serial Monitor at 115200 baud rate
-void
-loop () {
-int potValue = analogRead(potPin);
-
-// Read analog value (0-4095)
-Serial.print( "Potentiometer Value: ");
-Serial.println(potValue);
-
-// Print the value
-delay lay(200) ;
-// Delay for readability
+void loop()
+{
+int signalState = digitalRead(signalPin);
+if (signalState == HIGH)
+{
+Serial.println("High voltage detected!");
+}
+else
+{
+Serial.println("No high voltage detected (safe).");
+}
+delay(500);
 }
